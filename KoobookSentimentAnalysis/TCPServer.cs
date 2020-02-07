@@ -11,6 +11,11 @@ namespace KoobookSentimentAnalysis
 {
     class TCPServer
     {
+        //This method works by listening on port 9875 for any incoming connection. After it accepts the connection from the client being the Android application, it will use the network stream to read the data being sent
+        //from the android app which is essentially all the reviews of the books liked by a certain user. The server keeps reading from the stream until it receives the "#" symbol which is the Android app's way of saying that it has
+        //sent all the data. The server then formats the received data and uses the Reviews Controller to extract only the positive reviews from this data. After the Reviews Controller returns the string containing the top 5 positive reviews
+        //it will send it to the android application and after sending it, it will also send a sub string "]d2C>^+" to tell the android app that it has sent all the data. If then waits until the Android app initiates the partial handshake
+        //for closing connection. After closing connection, a console window opens and the entire workflow repeats.  
         public void Listen(string fileName)
         {
             TcpListener server = null;
@@ -18,7 +23,7 @@ namespace KoobookSentimentAnalysis
             string dataFromClient;
             try
             {
-                Int32 port = 9877;
+                Int32 port = 9875;
                 server = new TcpListener(IPAddress.Any, port);
                 server.Start();
 
