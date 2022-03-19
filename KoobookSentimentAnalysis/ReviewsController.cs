@@ -63,11 +63,8 @@ namespace KoobookSentimentAnalysis
                     int reviewScore = 0;
                     foreach (var word in words)
                     {
-                        if (stopwords.Contains(word.ToLower()))
-                        {
-                            //Ignore the word 
-                        }
-                        else
+                        var isGoodWord = !stopwords.Contains(word.ToLower());
+                        if (isGoodWord)
                         {
 
                             try
